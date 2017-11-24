@@ -1,6 +1,9 @@
+"""
+CRM urls definition
+"""
 # -*- coding: utf-8 -*-
-from .api import CompanyViewSet
 from rest_framework.routers import DefaultRouter
+from .api import CompanyViewSet
 
 router = DefaultRouter()
 router.register(r'company', CompanyViewSet)

@@ -1,2 +1,5 @@
+-r required.txt
+
 django==1.11.5
 djangorestframework==3.6.4
+django-cors-headers==2.1.0

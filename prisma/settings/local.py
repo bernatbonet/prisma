@@ -1,3 +1,6 @@
+"""
+Local paramters configuration
+"""
 import os
 from .base import *
 
