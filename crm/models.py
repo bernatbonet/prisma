@@ -3,7 +3,6 @@ CRM models definition
 """
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
 from django.db import models
 
 class Company(models.Model):

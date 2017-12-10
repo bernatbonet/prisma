@@ -22,7 +22,7 @@ class User(AbstractUser):
     @receiver(post_save, sender=base.AUTH_USER_MODEL)
     def create_auth_token(sender, instance=None, created=False, **kwargs):
         """
-        This code is triggered whenever a new user has been created 
+        This code is triggered whenever a new user has been created
             and saved to the database
         """
         if created:
