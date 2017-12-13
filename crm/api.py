@@ -3,8 +3,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework import filters, permissions
 
 from .serializers import CompanySerializer, UserSerializer
-from .models import Company
-from core.models import User
+from .models import Company, User
 
 class CompanyViewSet(ModelViewSet):
     """ Viewset for company model"""

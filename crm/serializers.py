@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from rest_framework import serializers
 
-from .models import Company
-from core.models import User
+from .models import Company, User
 
 class CompanySerializer(serializers.ModelSerializer):
 
