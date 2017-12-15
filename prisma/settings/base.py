@@ -21,9 +21,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders',
-    'core',
     'crm',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -113,4 +112,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Default user model
-AUTH_USER_MODEL = 'core.User'
+AUTH_USER_MODEL = 'crm.User'
