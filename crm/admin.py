@@ -5,7 +5,8 @@ Setting exposed CRM models
 from __future__ import unicode_literals
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Company, Modules, Roles
+from .models import Company, Modules, Roles
+from core.models import User
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):

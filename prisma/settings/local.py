@@ -35,3 +35,7 @@ INSTALLED_APPS += [
 MIDDLEWARE += [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+# RestFramework configuration
+REST_FRAMEWORK.update(
+    {'TEST_REQUEST_DEFAULT_FORMAT': 'json'})

@@ -4,9 +4,10 @@ CRM views
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.http import Http404
+from rest_framework import permissions, status
+from rest_framework.decorators import permission_classes
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
 
 from .models import Modules
 from .serializers import ModuleSerializer
@@ -18,18 +19,26 @@ class ModulesApiView(APIView):
     Delete a module when the DELETE method is called
     """
 
-    def get(self, request, format=None):
+    def get(self, request, module_id=None, format=None):
         """
         Return a list of all the modules object in the database
+            or the selected module
         """
         # query the database for all instances of the Modules model
-        modules = Modules.objects.all()
+        if module_id is None:
+            modules = Modules.objects.all()
+        else:
+            modules = Modules.objects.get(id=module_id)
 
         # serialize the data into a returnable format
-        serializer = ModuleSerializer(modules, many=True)
+        if module_id is None:
+            serializer = ModuleSerializer(modules, many=True)
+        else:
+            serializer = ModuleSerializer(modules)
 
         return Response(serializer.data)
 
+    @permission_classes((permissions.IsAuthenticated, ))
     def post(self, request, format=None):
         """
         Creates a new module with the given data
@@ -46,6 +55,7 @@ class ModulesApiView(APIView):
             # Throw a 400 error if the serializer detected the data wasm't valid
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @permission_classes((permissions.IsAuthenticated, ))
     def delete(self, request, module_id, format=None):
         """
         Deletes a module from the database
