@@ -3,6 +3,7 @@ CRM views
 """
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from functools import partial
 from django.http import Http404
 from rest_framework import permissions, status
 from rest_framework.decorators import permission_classes
@@ -12,12 +13,24 @@ from rest_framework.response import Response
 from .models import Modules
 from .serializers import ModuleSerializer
 
+class CustomPermission(permissions.BasePermission):
+    """
+    Class that checks if current method is in allowed
+        list methods
+    """
+    def __init__(self, allowed_methods):
+        self.allowed_methods = allowed_methods
+    
+    def has_permission(self, request, view):
+        return request.method in self.allowed_methods
+
 class ModulesApiView(APIView):
     """
     List all the modules when the GET method is called
     Add new module when the POST method is called
     Delete a module when the DELETE method is called
     """
+    # permission_classes = (partial(CustomPermission, ['GET', 'HEAD', 'POST']),)
 
     def get(self, request, module_id=None, format=None):
         """
@@ -38,7 +51,6 @@ class ModulesApiView(APIView):
 
         return Response(serializer.data)
 
-    @permission_classes((permissions.IsAuthenticated, ))
     def post(self, request, format=None):
         """
         Creates a new module with the given data
@@ -55,7 +67,6 @@ class ModulesApiView(APIView):
             # Throw a 400 error if the serializer detected the data wasm't valid
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @permission_classes((permissions.IsAuthenticated, ))
     def delete(self, request, module_id, format=None):
         """
         Deletes a module from the database
