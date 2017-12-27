@@ -18,6 +18,7 @@ class ModulesApiView(APIView):
     Add new module when the POST method is called
     Delete a module when the DELETE method is called
     """
+    permission_classes = (permissions.IsAuthenticated, )
 
     def get(self, request, module_id=None, format=None):
         """
@@ -38,7 +39,6 @@ class ModulesApiView(APIView):
 
         return Response(serializer.data)
 
-    @permission_classes((permissions.IsAuthenticated, ))
     def post(self, request, format=None):
         """
         Creates a new module with the given data
@@ -55,7 +55,6 @@ class ModulesApiView(APIView):
             # Throw a 400 error if the serializer detected the data wasm't valid
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @permission_classes((permissions.IsAuthenticated, ))
     def delete(self, request, module_id, format=None):
         """
         Deletes a module from the database

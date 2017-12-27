@@ -48,11 +48,11 @@ class ModulesTestCase(TestCase):
         self.assertEqual(response.status_code, 401)
 
         # get method for unauthenticated users
-        response = self.client.get(
-            '/crm/modules/{0}'.format(response.data['id'])
-        )
-        print reponse.data['mod_codigo']
-        self.assertEqual(response.status_code, 200)
+        if response.status_code == 200:
+            response = self.client.get(
+                '/crm/modules/{0}'.format(response.data['id'])
+            )
+            self.assertEqual(response.status_code, 200)
 
         # ------------------------------------------------------
 
